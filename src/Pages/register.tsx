@@ -38,7 +38,7 @@ export default function Register() {
 const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
   try {
-    const res = await axios.post("http://aranzado-finals.vercel.app/register", form);
+    const res = await axios.post("https://aranzado-finals.vercel.app/register", form);
 
     setMessage(res.data.message);
 

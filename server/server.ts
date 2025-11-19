@@ -755,14 +755,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const port = ''
+const port = 3306;
 // Database connection
 const db = mysql.createPool({
   host: "sql12.freesqldatabase.com",
   user: "sql12808486",
   password: "NWjg9wP4ac", // your Laragon password, usually empty
   database: "sql12808486", // change to your database name
-  port: 3306,
+
 });
 
 // GOOGLE AUTH SETUP
