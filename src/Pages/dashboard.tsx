@@ -221,7 +221,7 @@ export default function Dashboard() {
   const fullname = localStorage.getItem("fullname");
 
   const api = axios.create({
-    baseURL: "http://https://aranzado-finals.vercel.app",
+    baseURL: "http://aranzado-finals.vercel.app",
     headers: { "Content-Type": "application/json" },
   });
 
