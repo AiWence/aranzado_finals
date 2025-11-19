@@ -771,7 +771,7 @@ const client = new OAuth2Client(
 );
 
 // ======================= REGISTER =======================
-app.post("/register", async (req, res) => {
+app.post("https://aranzado-finals.vercel.app/register", async (req, res) => {
   const { fullname, username, password } = req.body;
 
   if (!fullname || !username || !password) {
