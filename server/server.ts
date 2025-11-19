@@ -755,14 +755,21 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const port = 3306;
-// Database connection
-const db = mysql.createPool({
-  host: "sql12.freesqldatabase.com",
-  user: "sql12808486",
-  password: "NWjg9wP4ac", // your Laragon password, usually empty
-  database: "sql12808486", // change to your database name
+// const port = 3306;
+// // Database connection
+// const db = mysql.createPool({
+//   host: "sql12.freesqldatabase.com",
+//   user: "sql12808486",
+//   password: "NWjg9wP4ac", // your Laragon password, usually empty
+//   database: "sql12808486", // change to your database name
 
+// });
+
+const db = mysql.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
 
 // GOOGLE AUTH SETUP
@@ -827,37 +834,6 @@ app.post("/login", async (req, res) => {
     res.status(500).json({ success: false, message: "Server error." });
   }
 
-//   try {
-//   // ❌ DANGEROUS: user input is directly inserted into the SQL query
-//   const query = `
-//     SELECT * FROM users 
-//     WHERE username = '${username}' 
-//     AND password = '${password}'
-//   `;
-
-//   console.log("Executing vulnerable query:", query);
-
-//   const [rows]: any = await db.query(query);
-
-//   if (rows.length === 0) {
-//     return res.json({
-//       success: false,
-//       message: "Invalid username or password.",
-//     });
-//   }
-
-//   const user = rows[0];
-//   res.json({
-//     success: true,
-//     fullname: user.fullname,
-//     role: user.role,
-//     message: "Login successful!",
-//   });
-
-// } catch (err) {
-//   console.error("Login error:", err);
-//   res.status(500).json({ success: false, message: "Server error." });
-// }
 
 });
 
@@ -997,3 +973,38 @@ app.delete("/departments/:id", async (req, res) => {
 app.listen(port, () => {
   console.log("Server running on http://localhost:4000");
 });
+
+
+
+
+//   try {
+//   // ❌ DANGEROUS: user input is directly inserted into the SQL query
+//   const query = `
+//     SELECT * FROM users 
+//     WHERE username = '${username}' 
+//     AND password = '${password}'
+//   `;
+
+//   console.log("Executing vulnerable query:", query);
+
+//   const [rows]: any = await db.query(query);
+
+//   if (rows.length === 0) {
+//     return res.json({
+//       success: false,
+//       message: "Invalid username or password.",
+//     });
+//   }
+
+//   const user = rows[0];
+//   res.json({
+//     success: true,
+//     fullname: user.fullname,
+//     role: user.role,
+//     message: "Login successful!",
+//   });
+
+// } catch (err) {
+//   console.error("Login error:", err);
+//   res.status(500).json({ success: false, message: "Server error." });
+// }
