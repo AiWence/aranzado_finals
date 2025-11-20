@@ -30,12 +30,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     res.json({
       success: true,
       message: 'Login successful!',
-      user: {
         id: user.id,
         fullname: user.fullname,
         username: user.username,
         role: user.role,
-      },
+
     });
     
   } catch (err) {
