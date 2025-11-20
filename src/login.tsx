@@ -815,7 +815,7 @@ export default function Login() {
   // === Manual login ===
   const handleLogin = async () => {
     try {
-      const { data } = await axios.post("https://aranzado-finals.vercel.app/login", {
+      const { data } = await axios.post("https://aranzado-finals.vercel.app/api/login", {
         username,
         password,
       });
