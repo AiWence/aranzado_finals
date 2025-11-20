@@ -250,28 +250,36 @@ export default function Dashboard() {
 
   // Submit form
   const handleSubmit = async () => {
-    if (!form.abbreviation || !form.name || !form.description || !form.status) {
-      return alert("Please fill in all fields.");
+  if (!form.abbreviation || !form.name || !form.description || !form.status) {
+    return alert("Please fill in all fields.");
+  }
+
+  try {
+    if (editingId !== null) {   // 🔥 FIXED
+      await api.put(`/departments/${editingId}`, form);
+    } else {
+      await api.post("/departments", form);
     }
 
-    try {
-      if (editingId) {
-        await api.put(`/departments/${editingId}`, form);
-      } else {
-        await api.post("/departments", form);
-      }
-      setForm({ abbreviation: "", name: "", description: "", status: "" });
-      setEditingId(null);
-      fetchDepartments();
-    } catch (error) {
-      alert("Error submitting form.");
-    }
-  };
+    setForm({ abbreviation: "", name: "", description: "", status: "" });
+    setEditingId(null); // reset edit mode
+    fetchDepartments(); // refresh list
+  } catch (error) {
+    alert("Error submitting form.");
+  }
+};
 
-  const handleEdit = (department: Department) => {
-    setForm(department);
-    setEditingId(department.id);
-  };
+
+ const handleEdit = (department: Department) => {
+  setForm({
+    abbreviation: department.abbreviation,
+    name: department.name,
+    description: department.description,
+    status: department.status,
+  });
+  setEditingId(department.id); // 🔥 make sure this is number & not undefined
+};
+
 
   const handleDelete = async (id: number) => {
     if (confirm("Are you sure you want to delete this department?")) {
@@ -299,7 +307,10 @@ export default function Dashboard() {
       <input name="name" value={form.name} onChange={handleChange} placeholder="Name" />
       <input name="description" value={form.description} onChange={handleChange} placeholder="Description" />
       <input name="status" value={form.status} onChange={handleChange} placeholder="Status" />
-      <button onClick={handleSubmit}>{editingId ? "Update" : "Submit"}</button>
+      <button onClick={handleSubmit}>
+  {editingId !== null ? "Update" : "Add"}
+</button>
+
 
       <h2>Departments</h2>
       {loading ? <p>Loading...</p> : departments.length === 0 ? <p>No departments found.</p> : null}

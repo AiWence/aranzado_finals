@@ -7,6 +7,7 @@ const db = mysql.createPool({
   password: 'NWjg9wP4ac',
   database: 'sql12808486',
 });
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method === 'GET') return getDepartments(res);
   if (req.method === 'POST') return createDepartment(req, res);
