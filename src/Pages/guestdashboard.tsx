@@ -79,12 +79,10 @@
 
 
 
-interface DashboardProps {
-  role: string;
-}
 
-export default function GuestDashboard({ role }: DashboardProps) {
+export default function GuestDashboard() {
   const fullname = localStorage.getItem("fullname");
+  const role = localStorage.getItem("role");
 
   const logout = () => {
     localStorage.clear();

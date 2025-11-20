@@ -2887,7 +2887,7 @@ export default function App() {
       />
 
       <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/guestdashboard" element={<GuestDashboard role=""/>} />
+      <Route path="/guestdashboard" element={<GuestDashboard/>} />
         <Route path="/register" element={<Register />} />
     </Routes>
   );
